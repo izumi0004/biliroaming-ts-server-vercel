@@ -90,7 +90,7 @@ export const readCache = async (
     log_data.cache_way = "db_pg";
     c_vip = await env.db_bitio_pool
       .query(
-        "SELECT (data) FROM cache WHERE exp >= $1 AND need_vip = 1 AND (cid = $2 OR ep = $3)",
+        "SELECT (data) FROM cache WHERE exp >= $1 AND need_vip = 1 AND cid = $2 AND ep = $3",
         [Math.round(Number(new Date()) / 1000), cid, ep_id]
       )
       .then((res) => res.rows[0]?.data || undefined);
@@ -111,7 +111,7 @@ export const readCache = async (
       log_data.cache_way = "db_pg";
       c_normal = await env.db_bitio_pool
         .query(
-          "SELECT (data) FROM cache WHERE exp >= $1 AND need_vip = 0 AND (cid = $2 OR ep = $3)",
+          "SELECT (data) FROM cache WHERE exp >= $1 AND need_vip = 0 AND cid = $2 AND ep = $3",
           [Math.round(Number(new Date()) / 1000), cid, ep_id]
         )
         .then((res) => res.rows[0]?.data || undefined);
@@ -164,7 +164,7 @@ export const addNewCache = async (
     log_data.cache_way = "db_pg";
     await env.db_bitio_pool.query(
       "INSERT INTO cache (need_vip,exp,cid,ep,data) VALUES ($1,$2,$3,$4,$5)",
-      [need_vip, deadline, Number(data.cid), Number(data.ep_id), res_data]
+      [need_vip, deadline, Number(data.cid || 0), Number(data.ep_id || 0), res_data]
     );
   }
   log.info({});

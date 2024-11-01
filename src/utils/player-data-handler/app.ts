@@ -104,8 +104,8 @@ export const main = async (
   const info = info_cahce || (await bili.access_keyParams2info(url.search));
   if (env.need_login && info.uid === 0) return env.block(6);
   const rCache = await playerUtil.readCache(
-    Number(data.cid),
-    Number(data.ep_id),
+    Number(data.cid || 0),
+    Number(data.ep_id || 0),
     info
   );
   // if (rCache) return JSON.parse(rCache);
