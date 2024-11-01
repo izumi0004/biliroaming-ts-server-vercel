@@ -199,12 +199,12 @@ export const try_unblock_CDN_speed_enabled: io = 0;
 export const cache_time = 1000 * 60 * 15;
 //本地模式设置
 //本地模式开关
-export const db_local_enabled: io = 1;
+export const db_local_enabled: io = 0;
 //本地数据库查询密钥
 export const local_cache_secret = process.env.local_cache_secret || "";
 //PostgreSQL配置(需Read/Write权限)
 import { Pool } from "@neondatabase/serverless"; //导入(不用改)
-export const db_bitio_enabled: io = 0; //启用postgresql数据库
+export const db_bitio_enabled: io = 1; //启用postgresql数据库
 const connectionString = //三种配置方法
   process.env.POSTGRES_URL || //在Vercel项目Storage里连接数据库，并将上方 db_bitio_enabled 设为1
   process.env.db_bitio_pool || //配置环境变量 db_bitio_pool 为下方格式
@@ -222,9 +222,9 @@ export const db_NOTION_log = process.env.NOTION_db_log || "";
 
 //======================黑白名单设置============================
 //黑名单模式 1-开 0-关
-export const blacklist_enabled: io = 1;
+export const blacklist_enabled: io = 0;
 //白名单模式 1-开 0-关
-export const whitelist_enabled: io = 0;
+export const whitelist_enabled: io = 1;
 //验证vip与视频要求 1-开 0-关
 export const check_vip_enabled: io = 1;
 //禁忌设置-白名单调用vip access_key 1-开 0-关
@@ -233,7 +233,7 @@ export const whitelist_vip_enabled: io = 0;
 
 //===================获取公共黑白名单============================
 //功能开关 1-开 0-关
-export const public_blacklist_enabled: io = 1;
+export const public_blacklist_enabled: io = 0;
 //公共黑名单地址 要求：URL后需可以直接加 UID/mid
 export const public_blacklist: string = "https://black.qimo.ink/api/users/";
 //============================================================
@@ -242,7 +242,7 @@ export const public_blacklist: string = "https://black.qimo.ink/api/users/";
 //要求登录 1-开 0-关
 export const need_login: io = 1;
 //允许WEB版使用(B站官网可直接请求,无需开启此选项) 1-开 0-关
-export const web_on: io = 0;
+export const web_on: io = 1;
 //允许Referer为 https://www.bilibili.com 的请求而无需打开web_on (解决BBDown问题) 1-开 0-关
 //用BBDown的打开此选项(虽然似乎没用)
 export const pass_web_on_check: io = 1;
@@ -255,7 +255,7 @@ export const ver_min: number = 1290;
 //默认屏蔽部分番剧/视频，建议保持
 export const block_bangumi: _block_bangumi = {
   ss: [], //暂不支持ss屏蔽
-  ep: [778998, 778292, 769927, 778044, 779739, 780016], //数字
+  ep: [], //数字
   cid: [], //数字
   avid: [], //数字
   bvid: [], //字符，eg. ["BV1Wz4y1t7g4"]
